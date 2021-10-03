@@ -1,0 +1,3 @@
+# averager
+averager will accept any request method. It takes three input variables:  sum,count,add, but if any of these are missing, don’t report an error - instead, reset them to zero. However, if all of the variables are present, but one or more of them cannot be converted to an integer, then report
+status 400 Bad Request. This script will total up numbers sent to it; it always includes a form which has a single input field (type=number) for the variable add. It also always has hidden fields for sum,count. When the page loads, add the add variable to the sum, and increment the count (unless one of these variables is missing). Report to the user how much you added, and then report the sum, the count, and the average.
