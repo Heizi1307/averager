@@ -1,0 +1,59 @@
+#! /usr/bin/python3
+import cgi
+text1 = ""
+text2 = ""
+text3 = ""
+form = cgi.FieldStorage()
+if "sum" in form:
+    sum_info = form["sum"].value
+else:
+    sum_info = str(0)
+if "count" in form:
+    count_info = form["count"].value
+else:
+    count_info = str(0)
+if "add" in form:
+    add_info = form["add"].value
+else:
+    add_info = str(0)
+    text1 = ""
+if sum_info.isnumeric():
+    if count_info.isnumeric():
+        if add_info.isnumeric():
+            if add_info == "0":
+                text1 = ""
+            else:
+                text1 = "Added " + add_info + " to the sum..."
+            if count_info == "0":
+                text3 = ""
+            else:
+                text3 = "Average: " + str((int(sum_info)+int(add_info))/int(count_info))
+            text2 = "Sum so far: " + str(int(sum_info)+int(add_info)) + "</br></br>Count: " + count_info
+        else:
+            text1 = "Status: 400 Bad Request"
+            text2 = "The variable must be an integer"
+    else:
+        text1 = "Status: 400 Bad Request"
+        text2 = "The variable must be an integer"
+else:
+    text1 = "Status: 400 Bad Request"
+    text2 = "The variable must be an integer"
+print ("Content-type:text/html\r\n\r\n")
+print ('<html>')
+print ('<head>')
+print ('<title>averager</title>')
+print ('</head>')
+print ('<body>')
+print ('<p>%s</p>' % text1)
+print ('<p>%s</p>' % text2)
+print ('<p>%s</p>' % text3)
+print ('<form action=/cgi-bin/averager>')
+print ('<input type=hidden name=sum value=%s>' % str(int(sum_info)+int(add_info)))
+print ('<input type=hidden name=count value=%s>' % str(int(count_info)+1))
+print ('<input type=number name=add>')
+print ('<input type=submit>')
+print ('</form>')
+print ('</body>')
+print ('</html>')
+
+
